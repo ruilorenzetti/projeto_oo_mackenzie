@@ -85,4 +85,3 @@
 - **Fazer Commit**: `git commit -m "Mensagem do commit"`
 - **Enviar Branch**: `git push origin nome-da-branch`
 
-Espero que isso ajude! Se precisar de mais detalhes sobre algum desses passos, é só avisar.
