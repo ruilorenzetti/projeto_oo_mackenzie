@@ -85,3 +85,6 @@
 - **Fazer Commit**: `git commit -m "Mensagem do commit"`
 - **Enviar Branch**: `git push origin nome-da-branch`
 
+  Se você tiver dificuldades com as senhas, você precisa criar um cache de autenticação que é descrito na seguinte url:
+  <br> https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls
+
