@@ -1,6 +1,5 @@
 # projeto_oo_mackenzie
 
-Claro! Aqui está um guia básico sobre a instalação do Git no Windows, clonagem de repositórios, criação de branches e pull requests:
 
 ## 1. Instalação do Git no Windows
 
