@@ -1,4 +1,25 @@
 # projeto_oo_mackenzie
+<!-- TOC -->
+* [projeto_oo_mackenzie](#projeto_oo_mackenzie)
+  * [1. Instalação do Git no Windows](#1-instalação-do-git-no-windows)
+    * [Passo 1: Baixar o Git](#passo-1-baixar-o-git)
+    * [Passo 2: Instalar o Git](#passo-2-instalar-o-git)
+    * [Passo 3: Verificar a Instalação](#passo-3-verificar-a-instalação)
+  * [4. Git fluxo baśico: fork e git clone/add/commit/pull/push](#4-git-fluxo-baśico-fork-e-git-cloneaddcommitpullpush)
+    * [Passo 1: Fazer o fork do projeto original](#passo-1-fazer-o-fork-do-projeto-original-)
+    * [Clonagem de Repositórios](#clonagem-de-repositórios)
+        * [Passo 1: Obter a URL do Repositório](#passo-1-obter-a-url-do-repositório)
+      * [Passo 2: Clonar o Repositório](#passo-2-clonar-o-repositório)
+      * [Passo 3: Execute o comando de clonagem:](#passo-3-execute-o-comando-de-clonagem)
+    * [Criação de Branches](#criação-de-branches)
+      * [Passo 1: Criar uma Nova Branch](#passo-1-criar-uma-nova-branch)
+      * [Passo 2: Verificar Branch Atual](#passo-2-verificar-branch-atual)
+      * [Passo 3: Realize as suas mudanças](#passo-3-realize-as-suas-mudanças)
+    * [Passo 4: Adição dos arquivos para ao commit](#passo-4-adição-dos-arquivos-para-ao-commit)
+    * [Enviar a Branch para o Repositório Remoto](#enviar-a-branch-para-o-repositório-remoto)
+    * [Passo 3: Criar um Pull Request](#passo-3-criar-um-pull-request)
+  * [Resumo dos Comandos](#resumo-dos-comandos)
+<!-- TOC -->
 
 
 ## 1. Instalação do Git no Windows
@@ -19,61 +40,122 @@
 1. Abra o Git Bash ou o Prompt de Comando.
 2. Digite `git --version` para verificar se o Git foi instalado corretamente.
 
-## 2. Clonagem de Repositórios
+## 4. Git fluxo baśico fork e git clone/add/commit/pull/push
 
-### Passo 1: Obter a URL do Repositório
-1. Vá até a página do repositório no GitHub (ou outra plataforma Git).
-2. Clique no botão "Code" e copie a URL do repositório.
+### Passo 1: Fazer o fork do projeto original 
+0. Crie um fork do projeto https://github.com/ruilorenzetti/projeto_oo_mackenzie 
+na sua conta do github para isso faça o seguinte:
 
-### Passo 2: Clonar o Repositório
-1. Abra o Git Bash.
-2. Navegue até o diretório onde você deseja clonar o repositório:
-   ```sh
-   cd caminho/para/o/diretorio
-   ```
-3. Execute o comando de clonagem:
+   A) Realize o login na sua conta do github,
+
+   B) Procure na caixa de pesquisa ruilorenzetti/projeto_oo_mackenzie
+   ou navegue no browser em que você realizou o login para: https://github.com/ruilorenzetti/projeto_oo_mackenzie
+
+   Clique no seguinte botão para realizar o fork do projeto para sua conta.
+### Clonagem de Repositórios
+
+   ##### Passo 1: Obter a URL do Repositório
+      1. Vá até a página do repositório no GitHub (ou outra plataforma Git).
+      2. Clique no botão "Code" e copie a URL do repositório.
+
+   #### Passo 2: Clonar o Repositório
+      1. Abra o Git Bash.
+      2. Navegue até o diretório onde você deseja clonar o repositório:
+         
+            cd caminho/para/o/diretorio
+         
+   #### Passo 3: Execute o comando de clonagem:
    ```sh
    git clone URL_DO_REPOSITORIO
    ```
-   Substitua `URL_DO_REPOSITORIO` pela URL que você copiou.
+   _**Substitua `URL_DO_REPOSITORIO` pela URL que você copiou do seu projeto depois do FORK.**_
 
-## 3. Criação de Branches
+### Criação de Branches
 
-### Passo 1: Criar uma Nova Branch
-1. No Git Bash, navegue até o diretório do seu repositório clonado.
-2. Crie uma nova branch e mude para ela:
-   ```sh
-   git checkout -b nome-da-branch
-   ```
+   #### Passo 1: Criar uma Nova Branch
+      1. No Git Bash, navegue até o diretório do seu repositório clonado.
+      2. Crie uma nova branch e mude para ela:
+      
+      git checkout -b nome-da-branch
+      
 
-### Passo 2: Verificar Branch Atual
-1. Para verificar em qual branch você está, use:
-   ```sh
-   git branch
-   ```
+   #### Passo 2: Verificar Branch Atual
+      1. Para verificar em qual branch você está, use:
+        
+         git branch
 
-## 4. Pull Requests
+   #### Passo 3: Realize as suas mudanças
 
-### Passo 1: Fazer Commit das Mudanças
-1. Adicione os arquivos alterados ao commit:
-   ```sh
-   git add .
-   ```
-2. Faça o commit das suas mudanças:
-   ```sh
-   git commit -m "Mensagem do commit"
-   ```
+      Aqui nesse passo você poderá trabalhar efetivamente no projeto para realizarr as suas alterações no código 
 
-### Passo 2: Enviar a Branch para o Repositório Remoto
-1. Envie sua branch para o repositório remoto:
-   ```sh
-   git push origin nome-da-branch
-   ```
+   ### Passo 4: Adição dos arquivos para ao commit
+      1. Adicione os arquivos alterados ao commit:
+  
+         git add .
+   
+      2. Faça o commit das suas mudanças:
+      
+         git commit -am "Mensagem do commit"
+      
+         coloque uma mensagem que tenh significado paro o commit que será realizado 
 
+### Enviar a Branch para o Repositório Remoto
+   1. Envie sua branch para o repositório remoto:
+   Caso seja o primeiro push que voc^e ser
+      ```sh
+      git push origin nome-da-branch
+      ```
+   Caso não seja o primeiro commit que você irá executar, pode mandar executar
+      ```
+      git push
+      ```
 ### Passo 3: Criar um Pull Request
-1. Vá até a página do repositório no GitHub.
-2. Clique no botão "Compare & pull request" que aparece depois de fazer o push.
-3. Preencha os detalhes do pull request e clique em "Create pull request".
+1. Vá até a página do SEU repositório (o que foi criado na SUA conta  partir do fork do projeto original) no GitHub.
+   ![](./documents/images/projeto_inicial.png)
+   <BR>
+   <BR>
+   Na imagem acima:
+   * **Perceba o nome ddo seu usuário no canto superior a esquerda**_<BR>
+   * **_Perceba o link para "Branches" de onde você pode criar a branch no SEU projeto
+   (O que você criou a partir do fork do projeto original)_**<BR>
+   * **_PERCEBA O BOTÃO "Sync fork" QUE VOCÊ DEVE CLICAR SEMPRE ANTES DE EXECUTAR UM "git commit" ou 
+   "git push"_**
+   <BR>
+   <BR>
+2. Clique no nome do seu projeto (imagem abaixo).
+   <BR>
+   <BR>
+   ![](./documents/images/clique__no_nome_projeto_newbranch.png)
+3. Preencha os dados da branch (imagem abaixo) e confira os combo box que destacados na imgem  
+   **Ele deve ter o seu nome de usuario e deve ser criado a partir do main do seu projeto**
+   **O nome da sua nova branch (Não deve ter espaços nem caracteres especiais**
+   <BR>
+   <BR>
+   ![](./documents/images/new_branch0.png)
+4. Rellize as mudanças no seu código 
+   * Depois de realizar s mudanças, clique no botão no painel do seu repositório no github do seu
+     projeto "Sync Fork" conforme descrito anteriormente  no tutorial.
+   * Realize o fluxo de ``` git add .``` ->  ```git commit -am "coloque sua mensagem aqui" .```  -> ```git push```   
+5. Clique em Create Pull request no botão verde no painel do seu repositorio dentro do link "branches" do seu projeto
+   <BR>
+   <BR>
+    ![](./documents/images/pull_request_janela_0.PNG)
+6. Preencha os detalhes do pull request e clique em "Create pull request":
+   <BR>
+   <BR>
+   ![](./documents/images/tela_pull_request.PNG)
+   <BR>
+   <BR>
+    * Observe que a caixa "Base Repository" signiifica para qual repositorio deve ser integrado o seu código
+    * Observe que a caixa "base" significa para qual branch no repositorio remoto irá o seu código
+    * Observe que a caixa "head repository" significa de qual repositorio ira vir as mudanças (ou seja o seu repositorio)
+    * Observe que a caixa "compare" vai apontar para o nome da branch que tem as suas mudanças (não pode ser o ramo main do eu projeto)
+    <BR>
+    <BR>
+    _**Depois que terminar avise no grupo da sala sobre o seu pull request**_
+
+
+
 
 ## Resumo dos Comandos
 
@@ -82,7 +164,7 @@
 - **Criar Branch**: `git checkout -b nome-da-branch`
 - **Verificar Branch**: `git branch`
 - **Adicionar Alterações**: `git add .`
-- **Fazer Commit**: `git commit -m "Mensagem do commit"`
+- **Fazer Commit**: `git commit -am "Mensagem do commit"`
 - **Enviar Branch**: `git push origin nome-da-branch`
 
   Se você tiver dificuldades com as senhas, você precisa criar um cache de autenticação que é descrito na seguinte url:
