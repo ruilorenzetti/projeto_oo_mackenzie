@@ -15,9 +15,9 @@
       * [Passo 1: Criar uma Nova Branch](#passo-1-criar-uma-nova-branch)
       * [Passo 2: Verificar Branch Atual](#passo-2-verificar-branch-atual)
       * [Passo 3: Realize as suas mudanças](#passo-3-realize-as-suas-mudanças)
-    * [Passo 4: Adição dos arquivos para ao commit](#passo-4-adição-dos-arquivos-para-ao-commit)
+    * [Adição dos arquivos para ao commit](#passo-4-adição-dos-arquivos-para-ao-commit)
     * [Enviar a Branch para o Repositório Remoto](#enviar-a-branch-para-o-repositório-remoto)
-    * [Passo 3: Criar um Pull Request](#passo-3-criar-um-pull-request)
+    * [Criar um Pull Request](#passo-3-criar-um-pull-request)
   * [Resumo dos Comandos](#resumo-dos-comandos)
 <!-- TOC -->
 
