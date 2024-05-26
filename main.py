@@ -1,6 +1,6 @@
 # main.py
 from controllers import ClienteController, UsuarioController, ProblemaController, ChamadoController
-from models import Cliente, Usuario, Problema, Chamado
+from models import Cliente, Usuario, Problema, Chamad
 
 # Exemplo de uso
 if __name__ == "__main__":
