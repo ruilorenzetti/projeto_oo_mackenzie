@@ -15,9 +15,9 @@
       * [Passo 1: Criar uma Nova Branch](#passo-1-criar-uma-nova-branch)
       * [Passo 2: Verificar Branch Atual](#passo-2-verificar-branch-atual)
       * [Passo 3: Realize as suas mudanças](#passo-3-realize-as-suas-mudanças)
-    * [Passo 4: Adição dos arquivos para ao commit](#passo-4-adição-dos-arquivos-para-ao-commit)
+    * [Adição dos arquivos para ao commit](#passo-4-adição-dos-arquivos-para-ao-commit)
     * [Enviar a Branch para o Repositório Remoto](#enviar-a-branch-para-o-repositório-remoto)
-    * [Passo 3: Criar um Pull Request](#passo-3-criar-um-pull-request)
+    * [Criar um Pull Request](#passo-3-criar-um-pull-request)
   * [Resumo dos Comandos](#resumo-dos-comandos)
 <!-- TOC -->
 
@@ -53,11 +53,9 @@ na sua conta do github para isso faça o seguinte:
 
    Clique no seguinte botão para realizar o fork do projeto para sua conta.
 ### Clonagem de Repositórios
-
    ##### Passo 1: Obter a URL do Repositório
       1. Vá até a página do repositório no GitHub (ou outra plataforma Git).
       2. Clique no botão "Code" e copie a URL do repositório.
-
    #### Passo 2: Clonar o Repositório
       1. Abra o Git Bash.
       2. Navegue até o diretório onde você deseja clonar o repositório:
