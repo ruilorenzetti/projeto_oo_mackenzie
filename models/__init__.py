@@ -1,4 +1,4 @@
-# models.py
+__init__.py# models.py
 
 class Cliente:
     def __init__(self, nome, email, empresa, telefone):
