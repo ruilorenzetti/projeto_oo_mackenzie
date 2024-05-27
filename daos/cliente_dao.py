@@ -24,6 +24,10 @@ class ClienteDAO(ABC):
     def excluir(self, cliente_id):
         pass
 
+    @abstractmethod
+    def listar_todos(self):
+        pass
+
 class SQLiteClienteDAO(ClienteDAO):
     def criar_tabela(self):
         conexao = self.db_conexao.get_conexao()
@@ -60,3 +64,9 @@ class SQLiteClienteDAO(ClienteDAO):
         cursor = conexao.cursor()
         cursor.execute('DELETE FROM clientes WHERE id = (?)', (cliente_id,))
         conexao.commit()
+
+    def listar_todos(self):
+        conexao = self.db_conexao.get_conexao()
+        cursor = conexao.cursor()
+        cursor.execute('SELECT * FROM clientes')
+        return cursor.fetchall()

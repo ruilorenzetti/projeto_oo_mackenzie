@@ -13,7 +13,7 @@ class ChamadoDAO(ABC):
         pass
 
     @abstractmethod
-    def atribuir_atendente(self, chamado: Chamado):
+    def atribuir_atendente(self, chamado_id, usuario_id):
         pass
 
     @abstractmethod
@@ -36,6 +36,15 @@ class ChamadoDAO(ABC):
     def excluir(self, chamado_id):
         pass
 
+    @abstractmethod
+    def listar_todos(self):
+        pass
+
+    @abstractmethod
+    def listar_todos_por_categoria_problema(self, id_categoria):
+        pass
+
+
 class SQLiteChamadoDAO(ChamadoDAO):
     def criar_tabela(self):
         conexao = self.db_conexao.get_conexao()
@@ -44,10 +53,13 @@ class SQLiteChamadoDAO(ChamadoDAO):
                         (id INTEGER PRIMARY KEY AUTOINCREMENT,
                         titulo TEXT NOT NULL,
                         descricao TEXT NOT NULL,
+                        id_categoria INT NOT NULL,
+                        id_cliente INT NOT NULL,
+                        id_usuario INT,
                         status TEXT NOT NULL,
-                        data_abertura TEXT NOT NULL,
-                        data_max TEXT NOT NULL,
-                        data_fechamento TEXT NOT NULL)''')
+                        data_abertura DATE NOT NULL,
+                        data_max DATE NOT NULL,
+                        data_fechamento DATE NOT NULL)''')
         conexao.commit()
 
     def abrir(self, chamado: Chamado):
@@ -57,10 +69,10 @@ class SQLiteChamadoDAO(ChamadoDAO):
                         (chamado.titulo, chamado.descricao, chamado.status, chamado.data_abertura, chamado.data_max, chamado.data_fechamento))
         conexao.commit()
 
-    def atribuir_atendente(self, chamado: Chamado):
+    def atribuir_atendente(self, chamado_id, usuario_id):
         conexao = self.db_conexao.get_conexao()
         cursor = conexao.cursor()
-        cursor.execute('''UPDATE chamados SET status = (?) WHERE id = (?)''', (chamado.status, chamado.id))
+        cursor.execute('''UPDATE chamados SET id_usuario = (?), status = 'Atribuído' WHERE id = (?)''', (usuario_id, chamado_id))
         conexao.commit()
 
     def alterar_status(self, chamado: Chamado):
@@ -72,7 +84,7 @@ class SQLiteChamadoDAO(ChamadoDAO):
     def fechar(self, chamado: Chamado):
         conexao = self.db_conexao.get_conexao()
         cursor = conexao.cursor()
-        cursor.execute('''UPDATE chamados SET status = (?) WHERE id = (?)''', (chamado.status, chamado.id))
+        cursor.execute('''UPDATE chamados SET status = (?) WHERE id = (?)''', (chamado, chamado.id))
         conexao.commit()
 
     def visualizar(self, chamado_id):
@@ -92,3 +104,15 @@ class SQLiteChamadoDAO(ChamadoDAO):
         cursor = conexao.cursor()
         cursor.execute('DELETE FROM chamados WHERE id = (?)', (chamado_id,))
         conexao.commit()
+
+    def listar_todos(self):
+        conexao = self.db_conexao.get_conexao()
+        cursor = conexao.cursor()
+        cursor.execute('SELECT * FROM chamados')
+        return cursor.fetchall()
+
+    def listar_todos_por_categoria_problema(self, id_categoria):
+        conexao = self.db_conexao.get_conexao()
+        cursor = conexao.cursor()
+        cursor.execute('SELECT * FROM chamados WHERE id_categoria = (?)', (id_categoria,))
+        return cursor.fetchall()
