@@ -2,11 +2,11 @@
 
 <!-- TOC -->
 * [projeto_oo_mackenzie](#projeto_oo_mackenzie)
-  * [1. Instalação do Git no Windows](#1-instalação-do-git-no-windows)
+  * [Instalação do Git no Windows](#1-instalação-do-git-no-windows)
     * [Passo 1: Baixar o Git](#passo-1-baixar-o-git)
     * [Passo 2: Instalar o Git](#passo-2-instalar-o-git)
     * [Passo 3: Verificar a Instalação](#passo-3-verificar-a-instalação)
-  * [4. Git fluxo baśico fork e git clone/add/commit/pull/push](#4-git-fluxo-baśico-fork-e-git-cloneaddcommitpullpush)
+  * [Git fluxo baśico fork e git clone/add/commit/pull/push](#4-git-fluxo-baśico-fork-e-git-cloneaddcommitpullpush)
     * [Passo 1: Fazer o fork do projeto original](#passo-1-fazer-o-fork-do-projeto-original-)
     * [Clonagem de Repositórios](#clonagem-de-repositórios)
         * [Passo 1: Obter a URL do Repositório](#passo-1-obter-a-url-do-repositório)
