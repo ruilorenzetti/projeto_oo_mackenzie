@@ -4,7 +4,7 @@ from services.database_service import ConectaBanco
 from models import Problema
 import sqlite3
 
-class ProblemaDAO(ABC):
+class CategoriaProblemaDAO(ABC):
     def __init__(self, db_conexao: ConectaBanco):
         self.db_conexao = db_conexao
 
@@ -24,7 +24,11 @@ class ProblemaDAO(ABC):
     def excluir(self, problema_id):
         pass
 
-class SQLiteProblemaDAO(ProblemaDAO):
+    @abstractmethod
+    def listar_todos(self):
+        pass
+
+class SQLiteCategoriaProblemaDAO(CategoriaProblemaDAO):
     def criar_tabela(self):
         conexao = self.db_conexao.get_conexao()
         cursor = conexao.cursor()
@@ -58,3 +62,9 @@ class SQLiteProblemaDAO(ProblemaDAO):
         cursor = conexao.cursor()
         cursor.execute('DELETE FROM problemas WHERE id = (?)', (problema_id,))
         conexao.commit()
+
+    def listar_todos(self):
+        conexao = self.db_conexao.get_conexao()
+        cursor = conexao.cursor()
+        cursor.execute('SELECT * FROM problemas')
+        return cursor.fetchall()

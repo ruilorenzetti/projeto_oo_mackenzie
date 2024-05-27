@@ -23,6 +23,10 @@ class UsuarioDAO(ABC):
     @abstractmethod
     def excluir(self, usuario_id):
         pass
+    @abstractmethod
+    def listar_todos(self):
+        pass
+
 
 class SQLiteUsuarioDAO(UsuarioDAO):
     def criar_tabela(self):
@@ -60,3 +64,9 @@ class SQLiteUsuarioDAO(UsuarioDAO):
         cursor = conexao.cursor()
         cursor.execute('DELETE FROM usuarios WHERE id = (?)', (usuario_id,))
         conexao.commit()
+
+    def listar_todos(self):
+        conexao = self.db_conexao.get_conexao()
+        cursor = conexao.cursor()
+        cursor.execute('SELECT * FROM usuarios')
+        return cursor.fetchall()
