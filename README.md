@@ -1,11 +1,12 @@
 # projeto_oo_mackenzie
+
 <!-- TOC -->
 * [projeto_oo_mackenzie](#projeto_oo_mackenzie)
-  * [1. Instalação do Git no Windows](#1-instalação-do-git-no-windows)
+  * [Instalação do Git no Windows](#1-instalação-do-git-no-windows)
     * [Passo 1: Baixar o Git](#passo-1-baixar-o-git)
     * [Passo 2: Instalar o Git](#passo-2-instalar-o-git)
     * [Passo 3: Verificar a Instalação](#passo-3-verificar-a-instalação)
-  * [2. Git fluxo baśico: fork e git clone/add/commit/pull/push](#4-git-fluxo-baśico-fork-e-git-cloneaddcommitpullpush)
+  * [Git fluxo baśico fork e git clone/add/commit/pull/push](#4-git-fluxo-baśico-fork-e-git-cloneaddcommitpullpush)
     * [Passo 1: Fazer o fork do projeto original](#passo-1-fazer-o-fork-do-projeto-original-)
     * [Clonagem de Repositórios](#clonagem-de-repositórios)
         * [Passo 1: Obter a URL do Repositório](#passo-1-obter-a-url-do-repositório)
@@ -15,13 +16,15 @@
       * [Passo 1: Criar uma Nova Branch](#passo-1-criar-uma-nova-branch)
       * [Passo 2: Verificar Branch Atual](#passo-2-verificar-branch-atual)
       * [Passo 3: Realize as suas mudanças](#passo-3-realize-as-suas-mudanças)
-    * [Adição dos arquivos para ao commit](#passo-4-adição-dos-arquivos-para-ao-commit)
+    * [Passo 4: Adição dos arquivos para ao commit](#passo-4-adição-dos-arquivos-para-ao-commit)
     * [Enviar a Branch para o Repositório Remoto](#enviar-a-branch-para-o-repositório-remoto)
-    * [Criar um Pull Request](#passo-3-criar-um-pull-request)
+    * [Passo 3: Criar um Pull Request](#passo-3-criar-um-pull-request)
   * [Resumo dos Comandos](#resumo-dos-comandos)
+  * [Estrutura de alto nivel do projeto](#estrutura-de-alto-nivel-do-projeto-)
+    * [Estrutura Básica do Projeto](#estrutura-básica-do-projeto)
+    * [Explicação dos Componentes](#explicação-dos-componentes)
+    * [Conclusão](#conclusão)
 <!-- TOC -->
-
-
 ## 1. Instalação do Git no Windows
 
 ### Passo 1: Baixar o Git
@@ -233,4 +236,14 @@ na sua conta do github para isso faça o seguinte:
 A arquitetura apresentada acima segue o padrão de design conhecido como "Camadas" ou "Layers", onde cada camada tem uma responsabilidade distinta e comunica-se com a camada adjacente. Essa separação de responsabilidades facilita a manutenção e a escalabilidade da aplicação. Além disso, torna o código mais modular e testável, permitindo uma maior reutilização de componentes e uma menor dependência entre as partes do sistema.
 
 
+## Extracao de requisitos para os servicos (services)
 
+    * Tabela de usuario
+        Cadastrar , Visualisar , Alterar , Excluir
+    * Tabela de cliente
+        Cadastrar , Visualisar , Alterar , Excluir
+    * Tabela de categoria de problemas 
+        Cadastrar, Visualizar, Alterar , Excluir
+    * Tabela de chamados
+        Deve haver funcionalidade para listar chamados baseados em seu status, 
+        mostrando as datas relevantes (abertura, máxima para atendimento, fechamento).
