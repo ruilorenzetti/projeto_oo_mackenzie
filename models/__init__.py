@@ -1,5 +1,4 @@
 # models.py
-
 class Cliente:
     def __init__(self, nome, email, empresa, telefone):
         self.nome = nome
