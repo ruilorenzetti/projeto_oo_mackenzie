@@ -31,11 +31,11 @@ class LoginScreen:
         self.password_input.grid(row=1,column=1, padx=2, pady=2)
 
         #Botão de login
-        self.login_button = tk.Button(self.frame, text='Entrar', command=self.login)
+        self.login_button = tk.Button(self.frame, text='Entrar', command=self.login, bg='green', fg='white')
         self.login_button.grid(row=2, column=0, sticky='ew', padx=2) #Stick = expandir de leste a oeste
 
         #Botão de sair
-        self.exit_button = tk.Button(self.frame, text='Sair', command=self.exit)
+        self.exit_button = tk.Button(self.frame, text='Sair', command=self.exit, bg='#E57373', fg='white')
         self.exit_button.grid(row=2, column=1, sticky='ew', padx=2) #Stick = expandir de leste a oeste
 
         #Texto clicavel para cadastro de atendente
