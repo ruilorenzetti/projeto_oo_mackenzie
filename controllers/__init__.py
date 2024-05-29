@@ -8,7 +8,7 @@ from services.database_service import ConectaBanco
 
 class ClienteController:
     def __init__(self):
-        self.conexao = ConectaBanco("clientes.db")
+        self.conexao = ConectaBanco()
         self.cliente_dao = SQLiteClienteDAO(self.conexao)
         self.cliente_dao.criar_tabela()
 
@@ -29,7 +29,7 @@ class ClienteController:
 
 class UsuarioController:
     def __init__(self):
-        self.conexao = ConectaBanco("usuarios.db")
+        self.conexao = ConectaBanco()
         self.usuario_dao = SQLiteUsuarioDAO(self.conexao)
         self.usuario_dao.criar_tabela()
 
@@ -50,7 +50,7 @@ class UsuarioController:
 
 class ProblemaController:
     def __init__(self):
-        self.conexao = ConectaBanco("problemas.db")
+        self.conexao = ConectaBanco()
         self.problema_dao = SQLiteCategoriaProblemaDAO(self.conexao)
         self.problema_dao.criar_tabela()
 
@@ -71,7 +71,7 @@ class ProblemaController:
 
 class ChamadoController:
     def __init__(self):
-        self.conexao = ConectaBanco("chamados.db")
+        self.conexao = ConectaBanco()
         self.chamado_dao = SQLiteChamadoDAO(self.conexao)
         self.chamado_dao.criar_tabela()
 
@@ -95,7 +95,6 @@ class ChamadoController:
 
     def excluir_chamado(self, chamado_id):
         self.chamado_dao.excluir(chamado_id)
-
 
     def listar_todos(self):
         return self.chamado_dao.listar_todos()

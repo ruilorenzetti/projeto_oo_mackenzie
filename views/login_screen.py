@@ -8,6 +8,7 @@ class LoginScreen:
     def __init__(self, root) -> None:
         self.root = root
         self.usuario_controller = UsuarioController()
+        self.cliente_controller = ClienteController()
         self.bold_font = ('Helvetica', 12, 'bold')
         self.root.title('Trabalho de POO - Sistema ERP')
         self.root.geometry('1280x720')
@@ -17,7 +18,7 @@ class LoginScreen:
         self.frame.pack(pady=100)
 
         #Campo de entrada para o usuario
-        self.username_label = tk.Label(self.frame, text='Usuario:', font=self.bold_font, anchor='w')
+        self.username_label = tk.Label(self.frame, text='Nome:', font=self.bold_font, anchor='w')
         self.username_label.grid(row=0, column=0, padx=0, pady=2)
         self.username_input = tk.Entry(self.frame, width=30)
         self.username_input.grid(row=0, column=1, padx=2, pady=2)
@@ -38,9 +39,16 @@ class LoginScreen:
 
         #Texto clicavel para cadastro de atendente
         self.cadastro_atendente_label = tk.Label(self.frame, text='Cadastrar atendente', fg='blue', cursor='hand2')
-        self.cadastro_atendente_label.grid(row=3, column=0, columnspan=2, sticky='ew')
+        self.cadastro_atendente_label.grid(row=4, column=0, columnspan=2, sticky='ew')
         #Caso a label de "Cadastrar atendente" for clicado pelo botao numero 1 do mouse (esquerdo), chama função
         self.cadastro_atendente_label.bind("<Button-1>", lambda e: self.open_cadastro_atendente_screen())
+
+        self.tipo_login = ['Atendente', 'Cliente']
+        self.tipo_login_selecionado = tk.StringVar(root)
+        self.tipo_login_selecionado.set(self.tipo_login[0])
+        # Select dos atendentes (OptionMenu)
+        self.option_menu = tk.OptionMenu(self.frame, self.tipo_login_selecionado, *self.tipo_login)
+        self.option_menu.grid(row=3, column=0, columnspan=2, padx=10, pady=5, sticky='ew')
 
     def open_cadastro_atendente_screen(self) -> None:
         from .atendente_cadastro_screen import AtendenteCadastroScreen
@@ -52,22 +60,42 @@ class LoginScreen:
     def login(self) -> None:
         username = self.username_input.get()
         password = self.password_input.get()
+        combobox_selected = self.tipo_login_selecionado.get()
 
-        nome_usuario = self.validar_credenciais(username, password)
-        if nome_usuario:
-            # Se o retorno não for None, mostra o nome do usuário
-            messagebox.showinfo('Login', f'Bem-vindo ao sistema, {nome_usuario}!')
-            self.open_atendente_screen()
-        else:
-            # Se o retorno for None, mostra a mensagem de erro.
-            messagebox.showerror('Login', 'Usuário ou senha incorretos!')
+        if combobox_selected == 'Atendente':
+            nome_usuario = self.validar_credenciais_usuario(username, password)
+            if nome_usuario:
+                # Se o retorno não for None, mostra o nome do usuário
+                messagebox.showinfo('Login', f'Bem-vindo ao sistema, {nome_usuario}!')
+                self.open_atendente_screen()
+            else:
+                # Se o retorno for None, mostra a mensagem de erro.
+                messagebox.showerror('Login', 'Usuário ou senha incorretos!')
 
-    def validar_credenciais(self, email, password) -> str | None:
+        else: 
+            nome_usuario = self.validar_credenciais_cliente(username, password)
+            if nome_usuario:
+                # Se o retorno não for None, mostra o nome do usuário
+                messagebox.showinfo('Login', f'Bem-vindo ao sistema, {nome_usuario}!')
+                self.open_cliente_screen()
+            else:
+                # Se o retorno for None, mostra a mensagem de erro.
+                messagebox.showerror('Login', 'Usuário ou senha incorretos!')
+
+    def validar_credenciais_usuario(self, email, password) -> str | None:
         usuarios_banco = self.usuario_controller.listar_todos()
         for usuario in usuarios_banco:
             # Assume-se que o email está no índice 2 e a senha no índice 3, nome no índice 1
             if usuario[2] == email and usuario[3] == password:
                 return usuario[1]  # Retorna o nome do usuário
+        return None  # Retorna None se nenhum usuário válido for encontrado
+    
+    def validar_credenciais_cliente(self, email, password) -> str | None:
+        clientes_banco = self.cliente_controller.listar_todos()
+        for cliente in clientes_banco:
+            # Assume-se que o email está no índice 2 e a senha no índice 3, nome no índice 1
+            if cliente[2] == email and cliente[5] == password:
+                return cliente[1]  # Retorna o nome do usuário
         return None  # Retorna None se nenhum usuário válido for encontrado
 
     def open_atendente_screen(self) -> None:
@@ -75,6 +103,13 @@ class LoginScreen:
         self.exit()
         new_root = tk.Tk()
         atendente_app = AtendenteScreen(new_root)
+        new_root.mainloop()
+
+    def open_cliente_screen(self) -> None:
+        from .cliente_screen import ClienteScreen
+        self.exit()
+        new_root = tk.Tk()
+        atendente_app = ClienteScreen(new_root)
         new_root.mainloop()
 
     def exit(self) -> None:

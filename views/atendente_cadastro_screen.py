@@ -67,7 +67,7 @@ class AtendenteCadastroScreen:
             messagebox.showerror('Cadastro', 'As senhas são diferentes!')
             return
 
-        novo_usuario = Usuario(nome=nome, email=email, senha=senha, cargo="Atendente")
+        novo_usuario = Usuario(nome=nome, email=email, senha=senha, cargo="Atendente", id='')
         self.usuario_controller.criar_usuario(novo_usuario)
         messagebox.showinfo('Cadastro', f'Atendente {nome} cadastrado com sucesso!')
         self.open_login_screen()

@@ -10,7 +10,7 @@ if __name__ == "__main__":
     chamado_controller = ChamadoController()
 
     # Criação de um cliente
-    novo_cliente = Cliente(nome="João", email="joao@example.com", empresa="Empresa X", telefone="12345678")
+    novo_cliente = Cliente(nome="João", email="joao@example.com", empresa="Empresa X", telefone="12345678", id='', senha='123')
     cliente_controller.criar_cliente(novo_cliente)
 
     # Visualização de um cliente
@@ -18,7 +18,7 @@ if __name__ == "__main__":
     print(cliente)
 
     # Criação de um usuário
-    novo_usuario = Usuario(nome="Maria", email="maria@example.com", senha="senha123", cargo="Atendente")
+    novo_usuario = Usuario(nome="Maria", email="maria@example.com", senha="senha123", cargo="Atendente", id='')
     usuario_controller.criar_usuario(novo_usuario)
 
     # Visualização de um usuário
@@ -26,15 +26,15 @@ if __name__ == "__main__":
     print(usuario)
 
     # Criação de um problema
-    novo_problema = Problema(descricao="Problema de rede", sla="24h")
+    novo_problema = Problema(descricao="Problema de rede", sla="24h", id='')
     problema_controller.criar_problema(novo_problema)
 
     # Visualização de um problema
     problema = problema_controller.visualizar_problema(1)
     print(problema)
-
+    
     # Criação de um chamado
-    novo_chamado = Chamado(titulo="Chamado 1", descricao="Descrição do chamado", status="Aberto", data_abertura="2023-05-25", data_max="2023-05-30", data_fechamento="")
+    novo_chamado = Chamado(titulo="Chamado 1", descricao="Descrição do chamado", status="Aberto", data_abertura="2023-05-25", data_max="2023-05-30", data_fechamento="", id_categoria=novo_problema.id[0], id_cliente='', id_usuario='', id='')
     chamado_controller.criar_chamado(novo_chamado)
 
     # Visualização de um chamado
