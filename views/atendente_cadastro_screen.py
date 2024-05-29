@@ -7,6 +7,7 @@ class AtendenteCadastroScreen:
 
     def __init__(self, root) -> None:
         self.root = root
+        self.usuario_controller = UsuarioController()
         self.bold_font = ('Helvetica', 12, 'bold')
         self.title_font = ('Helvetica', 14, 'bold')
         self.root.title('Trabalho de POO - Tela de Cadastro de Atendente')
@@ -45,12 +46,44 @@ class AtendenteCadastroScreen:
         self.confirmation_password_input.grid(row=4,column=1, padx=2, pady=2)
         
         #Botão de cadastro
-        self.cadastro_button = tk.Button(self.frame, text='Cadastrar', bg='green', fg='white')
+        self.cadastro_button = tk.Button(self.frame, text='Cadastrar', bg='green', fg='white', command=self.cadastrar_atendente)
         self.cadastro_button.grid(row=5, column=0, columnspan=2, sticky='ew', padx=2, pady=2) #Stick = expandir de leste a oeste
         
         #Botão de voltar
-        self.cadastro_button = tk.Button(self.frame, text='Voltar', bg='blue', fg='white')
-        self.cadastro_button.grid(row=6, column=0, columnspan=2, sticky='ew', padx=2, pady=2) #Stick = expandir de leste a oeste
+        self.voltar_button = tk.Button(self.frame, text='Voltar', bg='blue', fg='white', command=self.open_login_screen)
+        self.voltar_button.grid(row=6, column=0, columnspan=2, sticky='ew', padx=2, pady=2) #Stick = expandir de leste a oeste
+
+    def cadastrar_atendente(self) -> None:
+        nome = self.name_input.get()
+        email = self.email_input.get()
+        senha = self.password_input.get()
+        confirmacao_senha = self.confirmation_password_input.get()
+        
+        if not self.entradas_validas(nome, email, senha):
+            messagebox.showerror('Cadastro', 'Preencha todos os campos!')
+            return
+
+        if senha != confirmacao_senha:
+            messagebox.showerror('Cadastro', 'As senhas são diferentes!')
+            return
+
+        novo_usuario = Usuario(nome=nome, email=email, senha=senha, cargo="Atendente")
+        self.usuario_controller.criar_usuario(novo_usuario)
+        messagebox.showinfo('Cadastro', f'Atendente {nome} cadastrado com sucesso!')
+        self.open_login_screen()
+
+    def entradas_validas(self, nome, email, senha) -> bool:
+        return nome != '' and email != '' and senha != ''
+
+    def open_login_screen(self) -> None:
+        from .login_screen import LoginScreen
+        self.exit()
+        new_root = tk.Tk()
+        login_app = LoginScreen(new_root)
+        new_root.mainloop()
+    
+    def exit(self) -> None:
+        self.root.destroy()
 
 if __name__ == "__main__":
     root = tk.Tk()

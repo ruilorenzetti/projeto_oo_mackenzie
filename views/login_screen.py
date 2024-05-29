@@ -1,7 +1,5 @@
 from models import Cliente, Usuario, Problema, Chamado
 from controllers import ClienteController, UsuarioController, ProblemaController, ChamadoController
-from .atendente_screen import AtendenteScreen
-from .atendente_cadastro_screen import AtendenteCadastroScreen
 import tkinter as tk
 from tkinter import messagebox
 
@@ -45,6 +43,7 @@ class LoginScreen:
         self.cadastro_atendente_label.bind("<Button-1>", lambda e: self.open_cadastro_atendente_screen())
 
     def open_cadastro_atendente_screen(self) -> None:
+        from .atendente_cadastro_screen import AtendenteCadastroScreen
         self.exit()
         new_root = tk.Tk()
         atendente_cadastro_app = AtendenteCadastroScreen(new_root)
@@ -72,6 +71,7 @@ class LoginScreen:
         return None  # Retorna None se nenhum usuário válido for encontrado
 
     def open_atendente_screen(self) -> None:
+        from .atendente_screen import AtendenteScreen
         self.exit()
         new_root = tk.Tk()
         atendente_app = AtendenteScreen(new_root)
