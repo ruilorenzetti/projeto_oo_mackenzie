@@ -62,7 +62,7 @@ class LoginScreen:
             # Se o retorno for None, mostra a mensagem de erro.
             messagebox.showerror('Login', 'Usuário ou senha incorretos!')
 
-    def validar_credenciais(self, email, password) -> str:
+    def validar_credenciais(self, email, password) -> str | None:
         usuarios_banco = self.usuario_controller.listar_todos()
         for usuario in usuarios_banco:
             # Assume-se que o email está no índice 2 e a senha no índice 3, nome no índice 1

@@ -9,6 +9,7 @@ class AtendenteScreen:
         self.root = root
         self.bold_font = ('Helvetica', 12, 'bold')
         self.title_font = ('Helvetica', 14, 'bold')
+        self.cliente_controller = ClienteController()
         self.root.title('Trabalho de POO - Tela Atendente')
         self.root.geometry('1280x720')
         
@@ -37,29 +38,39 @@ class AtendenteScreen:
         self.detalhes_text.grid(row=2, column=2, padx=20, pady=20, columnspan=2)
         
         # Botões de Ação
-        self.criar_usuario_button = tk.Button(self.frame, text="Criar usuario", font=self.bold_font, width=15, command=self.criar_usuario)
+        self.criar_usuario_button = tk.Button(self.frame, text="Criar usuario", font=self.bold_font, width=15, command=self.criar_cliente)
         self.criar_usuario_button.grid(row=3, column=0, padx=20, pady=10)
 
-        self.excluir_usuario_button = tk.Button(self.frame, text="Excluir usuario", font=self.bold_font, width=15, command=self.excluir_usuario)
+        self.excluir_usuario_button = tk.Button(self.frame, text="Excluir usuario", font=self.bold_font, width=15, command=self.excluir_cliente)
         self.excluir_usuario_button.grid(row=3, column=1, padx=20, pady=10)
         
-        self.consultar_chamado_button = tk.Button(self.frame, text="Atualizar chamado", font=self.bold_font, width=15, command=self.atualizar_chamado)
+        self.consultar_chamado_button = tk.Button(self.frame, text="Consultar chamado", font=self.bold_font, width=15, command=self.consultar_chamado)
         self.consultar_chamado_button.grid(row=3, column=2, padx=20, pady=10)
 
         self.atualizar_chamado_button = tk.Button(self.frame, text="Atualizar chamado", font=self.bold_font, width=15, command=self.atualizar_chamado)
         self.atualizar_chamado_button.grid(row=3, column=3, padx=20, pady=10)
 
-    def criar_usuario(self):
-        messagebox.showinfo("Info", "Função criar usuário ainda não implementada")
+    def criar_cliente(self):
+        pass
 
-    def excluir_usuario(self):
-        messagebox.showinfo("Info", "Função excluir usuário ainda não implementada")
+    def excluir_cliente(self) -> None:
+        from .excluir_cliente_screen import ExcluirClienteScreen
+        self.exit()
+        new_root = tk.Tk()
+        excluir_cliente_app = ExcluirClienteScreen(new_root)
+        new_root.mainloop()
 
     def consultar_chamado(self):
         messagebox.showinfo("Info", "Função consultar chamado ainda não implementada")
 
     def atualizar_chamado(self):
         messagebox.showinfo("Info", "Função atualizar chamado ainda não implementada")
+
+    def listar_chamados(self):
+        pass
+
+    def exit(self) -> None:
+        self.root.destroy()
 
 if __name__ == "__main__":
     root = tk.Tk()
