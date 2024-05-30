@@ -2,8 +2,8 @@
 import sqlite3
 
 class ConectaBanco:
-    def __init__(self, db_name):
-        self.db_name = db_name
+    def __init__(self):
+        self.db_name = 'projeto_oo.db'
 
     def get_conexao(self):
         return sqlite3.connect(self.db_name)

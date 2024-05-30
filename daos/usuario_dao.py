@@ -46,6 +46,9 @@ class SQLiteUsuarioDAO(UsuarioDAO):
         cursor.execute('''INSERT INTO usuarios (nome,email,senha,cargo) VALUES (?,?,?,?)''',
                         (usuario.nome, usuario.email, usuario.senha, usuario.cargo))
         conexao.commit()
+        cursor.execute('SELECT MAX(id) FROM usuarios')
+        id = cursor.fetchall()
+        usuario.id = id
 
     def visualizar(self, usuario_id):
         conexao = self.db_conexao.get_conexao()

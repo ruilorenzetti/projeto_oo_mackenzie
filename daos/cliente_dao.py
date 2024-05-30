@@ -37,15 +37,19 @@ class SQLiteClienteDAO(ClienteDAO):
                         nome TEXT NOT NULL,
                         email TEXT NOT NULL,
                         empresa TEXT NOT NULL,
-                        telefone TEXT NOT NULL)''')
+                        telefone TEXT NOT NULL,
+                        senha TEXT NOT NULL)''')
         conexao.commit()
 
     def inserir(self, cliente: Cliente):
         conexao = self.db_conexao.get_conexao()
         cursor = conexao.cursor()
-        cursor.execute('''INSERT INTO clientes (nome,email,empresa,telefone) VALUES (?,?,?,?)''',
-                        (cliente.nome, cliente.email, cliente.empresa, cliente.telefone))
+        cursor.execute('''INSERT INTO clientes (nome,email,empresa,telefone,senha) VALUES (?,?,?,?,?)''',
+                        (cliente.nome, cliente.email, cliente.empresa, cliente.telefone, cliente.senha))
         conexao.commit()
+        cursor.execute('SELECT MAX(id) FROM clientes')
+        id = cursor.fetchone()
+        cliente.id = id
 
     def visualizar(self, cliente_id):
         conexao = self.db_conexao.get_conexao()

@@ -44,6 +44,9 @@ class SQLiteCategoriaProblemaDAO(CategoriaProblemaDAO):
         cursor.execute('''INSERT INTO problemas (descricao,sla) VALUES (?,?)''',
                         (problema.descricao, problema.sla))
         conexao.commit()
+        cursor.execute('SELECT MAX(id) FROM problemas')
+        id = cursor.fetchone()
+        problema.id = id
 
     def visualizar(self, problema_id):
         conexao = self.db_conexao.get_conexao()

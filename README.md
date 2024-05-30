@@ -1,5 +1,10 @@
 # projeto_oo_mackenzie
 
+* O projeto roda em Python 3.10 e o arquivo, os pacotes necessarios estão no arquivo requirements.txt, para rodar o projeto entre dentro da pasta projeto_oo_mackenzie e execute `python -m views.login_screen` 
+
+* Para fazer o login como atendente o usuario inicial é: maria@example.com e a senha é: senha123
+* Para fazer o login como cliente o usuario inicial é: joao@example.com e a senha é: 123
+
 <!-- TOC -->
 * [projeto_oo_mackenzie](#projeto_oo_mackenzie)
   * [Instalação do Git no Windows](#1-instalação-do-git-no-windows)
