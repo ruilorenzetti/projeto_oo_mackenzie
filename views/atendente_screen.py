@@ -131,7 +131,9 @@ class AtendenteScreen:
             
             nome_atendente = ''
             if id_atendente_chamado:
-                nome_atendente = self.usuario_controller.visualizar_usuario(id_atendente_chamado)[0][1]
+                nome_atendente_tupla = self.usuario_controller.visualizar_usuario(id_atendente_chamado)
+                if(nome_atendente_tupla):
+                    nome_atendente = self.usuario_controller.visualizar_usuario(id_atendente_chamado)[0][1]
 
             if selected_chamado:
                 # Insere os detalhes do chamado na listbox
