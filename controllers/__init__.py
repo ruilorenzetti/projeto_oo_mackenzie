@@ -1,4 +1,5 @@
 # controllers.py
+from daos.TIPO_ESTADO_CHAMADO import TIPO_ESTADO_CHAMADO
 from daos.cliente_dao import SQLiteClienteDAO
 from daos.usuario_dao import SQLiteUsuarioDAO
 from daos.problema_dao import SQLiteCategoriaProblemaDAO
@@ -89,7 +90,10 @@ class ChamadoController:
 
     def visualizar_chamado(self, chamado_id):
         return self.chamado_dao.visualizar(chamado_id)
-
+    
+    def visualizar_chamado_cliente(self, chamado_id):
+        return self.chamado_dao.visualizar_chamado_cliente(chamado_id)
+    
     def alterar_chamado(self, chamado: Chamado):
         self.chamado_dao.alterar(chamado)
 
@@ -98,6 +102,15 @@ class ChamadoController:
 
     def listar_todos(self):
         return self.chamado_dao.listar_todos()
+    
+    def listar_todos_por_cliente(self, id_cliente):
+        return self.chamado_dao.listar_todos_por_cliente(id_cliente)
 
     def listar_todos_por_categoria_problema(self,id_categoria):
         return self.chamado_dao.listar_todos_por_categoria_problema(id_categoria)
+    
+    def listar_todos_por_status(self, status:TIPO_ESTADO_CHAMADO):
+        return self.chamado_dao.listar_todos_por_status(status)
+    
+    def listar_todos_por_status_e_cliente(self, status:TIPO_ESTADO_CHAMADO, id_cliente):
+        return self.chamado_dao.listar_todos_por_status_e_cliente(status, id_cliente)

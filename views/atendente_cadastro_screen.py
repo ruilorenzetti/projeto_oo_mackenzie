@@ -15,43 +15,84 @@ class AtendenteCadastroScreen:
         
         # Cria um frame para os componentes de login
         self.frame = tk.Frame(self.root)
-        self.frame.pack(pady=200)
+        self.frame.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
 
-        #Titulo da tela
-        self.title_label = tk.Label(self.frame, text='Cadastro de Atendentes', font=self.title_font, anchor='center')
+        # Cria um frame interno para centralizar os widgets
+        self.inner_frame = tk.Frame(self.frame)
+        self.inner_frame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        # Titulo da tela
+        self.title_label = tk.Label(self.inner_frame, text='Cadastro de Atendentes', font=self.title_font, anchor='center')
         self.title_label.grid(row=0, column=0, padx=0, pady=5, columnspan=2)
+        
+        # Lista de Chamados
+        self.atendentes_listbox = tk.Listbox(self.inner_frame, font=self.bold_font, width=50, height=20)
+        self.atendentes_listbox.grid(row=8, column=0, padx=20, pady=20, columnspan=2)
 
-        #Campo de entrada para o nome
-        self.name_label = tk.Label(self.frame, text='Nome:', font=self.bold_font, anchor='e', width=13)
+        self.listar_atendentes()
+
+        self.atendentes_listbox.bind("<<ListboxSelect>>", self.listar_atendente)
+
+        # Campo de entrada para o nome
+        self.name_label = tk.Label(self.inner_frame, text='Nome:', font=self.bold_font, anchor='e', width=13)
         self.name_label.grid(row=1, column=0, padx=0, pady=2)
-        self.name_input = tk.Entry(self.frame, width=30)
+        self.name_input = tk.Entry(self.inner_frame, width=30)
         self.name_input.grid(row=1,column=1, padx=2, pady=2)
 
-        #Campo de entrada para o email
-        self.email_label = tk.Label(self.frame, text='Email:', font=self.bold_font, anchor='e', width=13)
+        # Campo de entrada para o email
+        self.email_label = tk.Label(self.inner_frame, text='Email:', font=self.bold_font, anchor='e', width=13)
         self.email_label.grid(row=2, column=0, padx=0, pady=2)
-        self.email_input = tk.Entry(self.frame, width=30)
+        self.email_input = tk.Entry(self.inner_frame, width=30)
         self.email_input.grid(row=2,column=1, padx=2, pady=2)
 
-        #Campo de entrada para a senha
-        self.password_label = tk.Label(self.frame, text='Senha:', font=self.bold_font, anchor='e', width=13)
+        # Campo de entrada para a senha
+        self.password_label = tk.Label(self.inner_frame, text='Senha:', font=self.bold_font, anchor='e', width=13)
         self.password_label.grid(row=3, column=0, padx=0, pady=2)
-        self.password_input = tk.Entry(self.frame, show='*', width=30)
+        self.password_input = tk.Entry(self.inner_frame, show='*', width=30)
         self.password_input.grid(row=3,column=1, padx=2, pady=2)
 
-        #Campo de entrada para a confirmação de senha
-        self.confirmation_password_label = tk.Label(self.frame, text='Confirmar senha:', font=self.bold_font, anchor='e', width=13)
+        # Campo de entrada para a confirmação de senha
+        self.confirmation_password_label = tk.Label(self.inner_frame, text='Confirmar senha:', font=self.bold_font, anchor='e', width=13)
         self.confirmation_password_label.grid(row=4, column=0, padx=0, pady=2)
-        self.confirmation_password_input = tk.Entry(self.frame, show='*', width=30)
+        self.confirmation_password_input = tk.Entry(self.inner_frame, show='*', width=30)
         self.confirmation_password_input.grid(row=4,column=1, padx=2, pady=2)
         
-        #Botão de cadastro
-        self.cadastro_button = tk.Button(self.frame, text='Cadastrar', bg='green', fg='white', command=self.cadastrar_atendente)
+        # Botão de cadastro
+        self.cadastro_button = tk.Button(self.inner_frame, text='Cadastrar', bg='green', fg='white', command=self.cadastrar_atendente)
         self.cadastro_button.grid(row=5, column=0, columnspan=2, sticky='ew', padx=2, pady=2) #Stick = expandir de leste a oeste
         
-        #Botão de voltar
-        self.voltar_button = tk.Button(self.frame, text='Voltar', bg='blue', fg='white', command=self.open_login_screen)
+        # Botão de voltar
+        self.voltar_button = tk.Button(self.inner_frame, text='Voltar', bg='blue', fg='white', command=self.open_login_screen)
         self.voltar_button.grid(row=6, column=0, columnspan=2, sticky='ew', padx=2, pady=2) #Stick = expandir de leste a oeste
+        
+        # Botão de delete
+        self.deletar_button = tk.Button(self.inner_frame, text='Deletar', bg='red', fg='white', command=self.delete_atendente)
+        self.deletar_button.grid(row=7, column=0, columnspan=2, sticky='ew', padx=2, pady=2) #Stick = expandir de leste a oeste
+
+    def delete_atendente(self):
+        usuario = self.usuario_controller.visualizar_usuario(self.id_atendente)
+        confirm = messagebox.askyesno("Confirmar Exclusão", f"Tem certeza que deseja excluir o cliente: {usuario[0][1]} que possui o id: {usuario[0][0]}?")
+        if(confirm):
+            self.usuario_controller.excluir_usuario(usuario[0][0])
+            messagebox.showinfo("Sucesso", f"Cliente {usuario[0][1]} excluído com sucesso.")
+            self.listar_atendentes()
+
+    def listar_atendente(self, event):
+        # Obtém o widget que gerou o evento e o índice do item selecionado
+        widget = event.widget
+        index_selecionado = widget.curselection()
+        if index_selecionado:
+            index = index_selecionado[0]
+            valor = widget.get(index)
+            # Extrai o ID do atendente da string
+            id_str = valor.split(" - ")[0].replace("ID: ", "")
+            self.id_atendente = int(id_str)
+
+    def listar_atendentes(self):
+        self.atendentes_listbox.delete(0, tk.END)
+        lista_atendentes = self.usuario_controller.listar_todos()
+        for atendente in lista_atendentes:
+            self.atendentes_listbox.insert(tk.END, f'ID: {atendente[0]:04} - Nome: {atendente[1]}')
 
     def cadastrar_atendente(self) -> None:
         nome = self.name_input.get()
@@ -70,7 +111,7 @@ class AtendenteCadastroScreen:
         novo_usuario = Usuario(nome=nome, email=email, senha=senha, cargo="Atendente", id='')
         self.usuario_controller.criar_usuario(novo_usuario)
         messagebox.showinfo('Cadastro', f'Atendente {nome} cadastrado com sucesso!')
-        self.open_login_screen()
+        self.listar_atendentes()
 
     def entradas_validas(self, nome, email, senha) -> bool:
         return nome != '' and email != '' and senha != ''

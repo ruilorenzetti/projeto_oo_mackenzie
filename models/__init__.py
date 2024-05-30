@@ -17,13 +17,13 @@ class Usuario:
         self.id = id
 
 class Problema:
-    def __init__(self, descricao, sla, id,):
+    def __init__(self, descricao=None, sla=None, id=None,):
         self.descricao = descricao
         self.sla = sla
         self.id = id
 
 class Chamado:
-    def __init__(self, titulo, descricao, status, data_abertura, data_max, data_fechamento, id_categoria, id_cliente, id_usuario, id):
+    def __init__(self, titulo=None, descricao=None, status=None, data_abertura=None, data_max=None, data_fechamento=None, id_categoria=None, id_cliente=None, id_usuario=None, id=None):
         self.titulo = titulo
         self.descricao = descricao
         self.status = status
@@ -34,3 +34,17 @@ class Chamado:
         self.id_cliente = id_cliente
         self.id_usuario = id_usuario
         self.id = id
+
+    def __str__(self):
+        return (f"Chamado("
+                f"titulo='{self.titulo}', "
+                f"descricao='{self.descricao}', "
+                f"status='{self.status}', "
+                f"data_abertura='{self.data_abertura}', "
+                f"data_max='{self.data_max}', "
+                f"data_fechamento='{self.data_fechamento}', "
+                f"id_categoria={self.id_categoria}, "
+                f"id_cliente={self.id_cliente}, "
+                f"id_usuario={self.id_usuario}, "
+                f"id={self.id})")
+

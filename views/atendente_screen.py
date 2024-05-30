@@ -1,4 +1,5 @@
 from models import Cliente, Usuario, Problema, Chamado
+from daos.TIPO_ESTADO_CHAMADO import TIPO_ESTADO_CHAMADO
 from controllers import ClienteController, UsuarioController, ProblemaController, ChamadoController
 import tkinter as tk
 from tkinter import messagebox
@@ -25,13 +26,25 @@ class AtendenteScreen:
         self.title_label = tk.Label(self.frame, text='Tela de Atendentes', font=self.title_font, anchor='center')
         self.title_label.grid(row=0, column=0, padx=0, pady=5, columnspan=4)
 
+        self.filtro_label = tk.Label(self.frame, text='Filtro:', font=self.title_font, anchor='w')
+        self.filtro_label.grid(row=2, column=0, padx=0, pady=5, sticky='w')
+
+        tipos_filtros = ['Todos', 'Aberto', 'Fechado', 'Em andamento']
+        
+        self.filtro_option = tk.StringVar(root)
+        self.filtro_option.set(tipos_filtros[0])
+        # Select dos atendentes (OptionMenu)
+        self.filtro_combobox = tk.OptionMenu(self.frame, self.filtro_option, *tipos_filtros)
+        self.filtro_combobox.grid(row=2, column=1, pady=5, sticky='ew')
+        self.filtro_option.trace("w", self.on_option_menu_state_change)
+
         #Subtitulo Lista de chamados
         self.title_label = tk.Label(self.frame, text='Lista de chamados:', font=self.title_font, anchor='e')
         self.title_label.grid(row=1, column=0, padx=0, pady=5, columnspan=2)
 
         # Lista de Chamados
         self.chamados_listbox = tk.Listbox(self.frame, font=self.bold_font, width=50, height=20)
-        self.chamados_listbox.grid(row=2, column=0, padx=20, pady=20, columnspan=2)
+        self.chamados_listbox.grid(row=3, column=0, padx=20, pady=20, columnspan=2)
 
         #Listo todos os chamados na lista de chamados
         self.listar_chamados()
@@ -45,26 +58,36 @@ class AtendenteScreen:
 
         # Detalhes do Chamado
         self.detalhes_list = tk.Listbox(self.frame, font=self.bold_font, width=50, height=20)
-        self.detalhes_list.grid(row=2, column=2, padx=20, pady=20, columnspan=2)
+        self.detalhes_list.grid(row=3, column=2, padx=20, pady=20, columnspan=2)
         
         # Botões de Ação
         self.criar_cliente_button = tk.Button(self.frame, text="Criar cliente", font=self.bold_font, width=15, command=self.criar_cliente)
-        self.criar_cliente_button.grid(row=3, column=0, padx=20, pady=10)
+        self.criar_cliente_button.grid(row=4, column=0, padx=20, pady=10)
 
-        self.excluir_usuario_button = tk.Button(self.frame, text="Excluir usuario", font=self.bold_font, width=15, command=self.excluir_cliente)
-        self.excluir_usuario_button.grid(row=3, column=1, padx=20, pady=10)
+        self.excluir_usuario_button = tk.Button(self.frame, text="Excluir cliente", font=self.bold_font, width=15, command=self.excluir_cliente)
+        self.excluir_usuario_button.grid(row=4, column=1, padx=20, pady=10)
 
         self.atualizar_chamado_button = tk.Button(self.frame, text="Atualizar chamado", font=self.bold_font, width=15, command=self.atualizar_chamado)
-        self.atualizar_chamado_button.grid(row=3, column=2, padx=20, pady=10)
+        self.atualizar_chamado_button.grid(row=4, column=2, padx=20, pady=10)
 
         self.voltar_button = tk.Button(self.frame, text="Voltar", font=self.bold_font, width=15, command=self.voltar_login)
-        self.voltar_button.grid(row=3, column=3, padx=20, pady=10)
+        self.voltar_button.grid(row=4, column=3, padx=20, pady=10)
+        
+        self.cadastrar_problema_button = tk.Button(self.frame, text="Cadastrar Problema", font=self.bold_font, width=15, command=self.open_cadastro_problem)
+        self.cadastrar_problema_button.grid(row=5, column=0, padx=20, pady=10)
 
         #Texto clicavel para exclusão de atendente
         self.excluir_atendente_label = tk.Label(self.frame, text='Excluir atendente', fg='red', cursor='hand2')
-        self.excluir_atendente_label.grid(row=4, column=3, sticky='ew')
+        self.excluir_atendente_label.grid(row=5, column=3, sticky='ew')
         #Caso a label de "Cadastrar atendente" for clicado pelo botao numero 1 do mouse (esquerdo), chama função
         self.excluir_atendente_label.bind("<Button-1>", lambda e: self.open_excluir_atendente_screen())
+
+    def open_cadastro_problem(self):
+        from .cadastro_problema_screen import CadastroProblemaScreen
+        self.exit()
+        new_root = tk.Tk()
+        cliente_cadastro_app = CadastroProblemaScreen(new_root)
+        new_root.mainloop()
 
     def criar_cliente(self):
         from .cliente_cadastro_screen import ClienteCadastroScreen
@@ -116,7 +139,6 @@ class AtendenteScreen:
             if id_atendente_chamado:
                 nome_atendente = self.usuario_controller.visualizar_usuario(id_atendente_chamado)[0][1]
 
-            print(selected_chamado)
             if selected_chamado:
                 # Insere os detalhes do chamado na listbox
                 self.detalhes_list.insert(tk.END, f'ID: {selected_chamado[0][0]:04}')
@@ -132,6 +154,30 @@ class AtendenteScreen:
             else:
                 messagebox.showerror("Erro", "Não foi possível encontrar os detalhes do chamado.")
     
+    def on_option_menu_state_change(self, *args) -> None:
+        option_selected_on_menu = self.filtro_option.get()
+        if option_selected_on_menu == 'Todos':
+            self.chamados_listbox.delete(0, tk.END)
+            chamados = self.chamado_controller.listar_todos_por_status(TIPO_ESTADO_CHAMADO.TODOS)
+            print(chamados)
+            for chamado in chamados:
+                self.chamados_listbox.insert(tk.END, f'ID: {chamado[0]:04}')
+        if option_selected_on_menu == 'Aberto':
+            self.chamados_listbox.delete(0, tk.END)
+            chamados = self.chamado_controller.listar_todos_por_status(TIPO_ESTADO_CHAMADO.ABERTO)
+            for chamado in chamados:
+                self.chamados_listbox.insert(tk.END, f'ID: {chamado[0]:04}')
+        if option_selected_on_menu == 'Fechado':
+            self.chamados_listbox.delete(0, tk.END)
+            chamados = self.chamado_controller.listar_todos_por_status(TIPO_ESTADO_CHAMADO.FECHADO)
+            for chamado in chamados:
+                self.chamados_listbox.insert(tk.END, f'ID: {chamado[0]:04}')
+        if option_selected_on_menu == 'Em andamento':
+            self.chamados_listbox.delete(0, tk.END)
+            chamados = self.chamado_controller.listar_todos_por_status(TIPO_ESTADO_CHAMADO.EM_ANDAMENTO)
+            for chamado in chamados:
+                self.chamados_listbox.insert(tk.END, f'ID: {chamado[0]:04}')
+        
     def voltar_login(self) -> None:
         from .login_screen import LoginScreen
         self.exit()

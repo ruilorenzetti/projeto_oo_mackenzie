@@ -73,11 +73,11 @@ class LoginScreen:
                 messagebox.showerror('Login', 'Usuário ou senha incorretos!')
 
         else: 
-            nome_usuario = self.validar_credenciais_cliente(username, password)
-            if nome_usuario:
+            nome_cliente = self.validar_credenciais_cliente(username, password)
+            if nome_cliente:
                 # Se o retorno não for None, mostra o nome do usuário
-                messagebox.showinfo('Login', f'Bem-vindo ao sistema, {nome_usuario}!')
-                self.open_cliente_screen()
+                messagebox.showinfo('Login', f'Bem-vindo ao sistema, {nome_cliente[1]}!')
+                self.open_cliente_screen(nome_cliente[0])
             else:
                 # Se o retorno for None, mostra a mensagem de erro.
                 messagebox.showerror('Login', 'Usuário ou senha incorretos!')
@@ -90,12 +90,12 @@ class LoginScreen:
                 return usuario[1]  # Retorna o nome do usuário
         return None  # Retorna None se nenhum usuário válido for encontrado
     
-    def validar_credenciais_cliente(self, email, password) -> str | None:
+    def validar_credenciais_cliente(self, email, password) -> tuple | None:
         clientes_banco = self.cliente_controller.listar_todos()
         for cliente in clientes_banco:
             # Assume-se que o email está no índice 2 e a senha no índice 3, nome no índice 1
             if cliente[2] == email and cliente[5] == password:
-                return cliente[1]  # Retorna o nome do usuário
+                return cliente  # Retorna o nome do usuário
         return None  # Retorna None se nenhum usuário válido for encontrado
 
     def open_atendente_screen(self) -> None:
@@ -105,11 +105,11 @@ class LoginScreen:
         atendente_app = AtendenteScreen(new_root)
         new_root.mainloop()
 
-    def open_cliente_screen(self) -> None:
+    def open_cliente_screen(self, id_cliente) -> None:
         from .cliente_screen import ClienteScreen
         self.exit()
         new_root = tk.Tk()
-        atendente_app = ClienteScreen(new_root)
+        atendente_app = ClienteScreen(new_root, id_cliente)
         new_root.mainloop()
 
     def exit(self) -> None:
