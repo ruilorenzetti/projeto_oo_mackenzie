@@ -77,7 +77,7 @@ class ClienteCadastroScreen:
         messagebox.showinfo('Cadastrado', 'Cliente cadastrado com sucesso!')
         self.voltar_atendente_screen()
         
-    def entradas_validas(self, nome, email, empresa, telefone, senha):
+    def entradas_validas(self, nome, email, empresa, telefone, senha) -> bool:
         return nome != '' and email != '' and empresa != '' and telefone != '' and senha != ''
 
     def voltar_atendente_screen(self) -> None:

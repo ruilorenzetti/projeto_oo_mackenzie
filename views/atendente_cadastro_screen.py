@@ -7,6 +7,7 @@ class AtendenteCadastroScreen:
 
     def __init__(self, root) -> None:
         self.root = root
+        self.id_atendente = ''
         self.usuario_controller = UsuarioController()
         self.bold_font = ('Helvetica', 12, 'bold')
         self.title_font = ('Helvetica', 14, 'bold')
@@ -31,7 +32,7 @@ class AtendenteCadastroScreen:
 
         self.listar_atendentes()
 
-        self.atendentes_listbox.bind("<<ListboxSelect>>", self.listar_atendente)
+        self.atendentes_listbox.bind("<<ListboxSelect>>", self.listar_id_atendente)
 
         # Campo de entrada para o nome
         self.name_label = tk.Label(self.inner_frame, text='Nome:', font=self.bold_font, anchor='e', width=13)
@@ -69,15 +70,18 @@ class AtendenteCadastroScreen:
         self.deletar_button = tk.Button(self.inner_frame, text='Deletar', bg='red', fg='white', command=self.delete_atendente)
         self.deletar_button.grid(row=7, column=0, columnspan=2, sticky='ew', padx=2, pady=2) #Stick = expandir de leste a oeste
 
-    def delete_atendente(self):
-        usuario = self.usuario_controller.visualizar_usuario(self.id_atendente)
-        confirm = messagebox.askyesno("Confirmar Exclusão", f"Tem certeza que deseja excluir o cliente: {usuario[0][1]} que possui o id: {usuario[0][0]}?")
-        if(confirm):
-            self.usuario_controller.excluir_usuario(usuario[0][0])
-            messagebox.showinfo("Sucesso", f"Cliente {usuario[0][1]} excluído com sucesso.")
-            self.listar_atendentes()
+    def delete_atendente(self) -> None:
+        if(not self.id_atendente):
+            messagebox.showerror('Erro', 'Selecione um atendente primeiro!')
+        else:
+            usuario = self.usuario_controller.visualizar_usuario(self.id_atendente)
+            confirm = messagebox.askyesno("Confirmar Exclusão", f"Tem certeza que deseja excluir o cliente: {usuario[0][1]} que possui o id: {usuario[0][0]}?")
+            if(confirm):
+                self.usuario_controller.excluir_usuario(usuario[0][0])
+                messagebox.showinfo("Sucesso", f"Cliente {usuario[0][1]} excluído com sucesso.")
+                self.listar_atendentes()
 
-    def listar_atendente(self, event):
+    def listar_id_atendente(self, event) -> None:
         # Obtém o widget que gerou o evento e o índice do item selecionado
         widget = event.widget
         index_selecionado = widget.curselection()
@@ -88,7 +92,7 @@ class AtendenteCadastroScreen:
             id_str = valor.split(" - ")[0].replace("ID: ", "")
             self.id_atendente = int(id_str)
 
-    def listar_atendentes(self):
+    def listar_atendentes(self) -> None:
         self.atendentes_listbox.delete(0, tk.END)
         lista_atendentes = self.usuario_controller.listar_todos()
         for atendente in lista_atendentes:
@@ -100,7 +104,7 @@ class AtendenteCadastroScreen:
         senha = self.password_input.get()
         confirmacao_senha = self.confirmation_password_input.get()
         
-        if not self.entradas_validas(nome, email, senha):
+        if not self.entradas_validas(nome, email, senha, confirmacao_senha):
             messagebox.showerror('Cadastro', 'Preencha todos os campos!')
             return
 
@@ -113,8 +117,8 @@ class AtendenteCadastroScreen:
         messagebox.showinfo('Cadastro', f'Atendente {nome} cadastrado com sucesso!')
         self.listar_atendentes()
 
-    def entradas_validas(self, nome, email, senha) -> bool:
-        return nome != '' and email != '' and senha != ''
+    def entradas_validas(self, nome, email, senha, confirmacao_senha) -> bool:
+        return nome != '' and email != '' and senha != '' and confirmacao_senha != ''
 
     def open_login_screen(self) -> None:
         from .login_screen import LoginScreen

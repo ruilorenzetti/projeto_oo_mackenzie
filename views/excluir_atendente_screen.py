@@ -39,11 +39,11 @@ class ExcluirAtendenteScreen:
     def excluir_usuario(self) -> None:
         user_email = self.email_user_input.get()
         user = self.valida_cliente(user_email=user_email)
-
+        
         if user:
             confirm = messagebox.askyesno("Confirmar Exclusão", f"Tem certeza que deseja excluir o cliente: {user[1]} que possui o email: {user[2]}?")
             if(confirm):
-                self.cliente_controller.excluir_cliente(cliente_id=user[0])
+                self.cliente_controller.excluir_cliente(user[0])
                 messagebox.showinfo("Sucesso", f"Cliente {user[1]} excluído com sucesso.")
                 self.voltar_atendente_screen()
         else:

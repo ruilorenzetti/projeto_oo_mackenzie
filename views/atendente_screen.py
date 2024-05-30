@@ -76,20 +76,14 @@ class AtendenteScreen:
         self.cadastrar_problema_button = tk.Button(self.frame, text="Cadastrar Problema", font=self.bold_font, width=15, command=self.open_cadastro_problem)
         self.cadastrar_problema_button.grid(row=5, column=0, padx=20, pady=10)
 
-        #Texto clicavel para exclusão de atendente
-        self.excluir_atendente_label = tk.Label(self.frame, text='Excluir atendente', fg='red', cursor='hand2')
-        self.excluir_atendente_label.grid(row=5, column=3, sticky='ew')
-        #Caso a label de "Cadastrar atendente" for clicado pelo botao numero 1 do mouse (esquerdo), chama função
-        self.excluir_atendente_label.bind("<Button-1>", lambda e: self.open_excluir_atendente_screen())
-
-    def open_cadastro_problem(self):
+    def open_cadastro_problem(self) -> None:
         from .cadastro_problema_screen import CadastroProblemaScreen
         self.exit()
         new_root = tk.Tk()
         cliente_cadastro_app = CadastroProblemaScreen(new_root)
         new_root.mainloop()
 
-    def criar_cliente(self):
+    def criar_cliente(self) -> None:
         from .cliente_cadastro_screen import ClienteCadastroScreen
         self.exit()
         new_root = tk.Tk()
@@ -103,7 +97,7 @@ class AtendenteScreen:
         excluir_cliente_app = ExcluirClienteScreen(new_root)
         new_root.mainloop()
         
-    def atualizar_chamado(self):
+    def atualizar_chamado(self) -> None:
         from .atualizar_chamado_screen import AtualizarChamadoScreen
         if self.selected_id_chamado:
             self.exit()

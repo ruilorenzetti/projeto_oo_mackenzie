@@ -53,12 +53,12 @@ class CadastroProblemaScreen:
         self.voltar_button = tk.Button(self.frame, text="Voltar", font=self.bold_font, width=15, command=self.voltar_atendente)
         self.voltar_button.grid(row=4, column=1, padx=20, pady=10)
 
-    def listar_problemas(self):
+    def listar_problemas(self) -> None:
         lista_problemas = self.problema_controller.listar_todos()
         for problema in lista_problemas:
             self.problemas_listbox.insert(tk.END, f'ID: {problema[0]:04} - Descrição: {problema[1]} - SLA: {problema[2]}')
 
-    def cadastrar_problema(self):
+    def cadastrar_problema(self) -> None:
         novo_problema = Problema()
         novo_problema.descricao = self.descricao_entry.get()
         novo_problema.sla = self.sla_entry.get()
@@ -66,7 +66,7 @@ class CadastroProblemaScreen:
         messagebox.showinfo('Cadastro', 'Problema cadastrado com sucesso!')
         self.voltar_atendente()
     
-    def voltar_atendente(self): 
+    def voltar_atendente(self) -> None: 
         from .atendente_screen import AtendenteScreen
         self.exit()
         new_root = tk.Tk()

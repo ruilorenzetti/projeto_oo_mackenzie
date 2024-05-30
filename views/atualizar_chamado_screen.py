@@ -3,6 +3,7 @@ from controllers import ClienteController, UsuarioController, ProblemaController
 import tkinter as tk
 from tkcalendar import DateEntry
 from tkinter import messagebox
+from datetime import date, datetime
 
 class AtualizarChamadoScreen:
 
@@ -109,7 +110,7 @@ class AtualizarChamadoScreen:
         self.voltar_button = tk.Button(self.frame, text="Voltar", font=self.bold_font, width=15, command=self.voltar_atendente)
         self.voltar_button.grid(row=9, column=1, padx=20, pady=10)
 
-    def atualizar_chamado(self):
+    def atualizar_chamado(self) -> None:
         chamado_obj = Chamado()
         chamado_obj.id = self.id_chamado
         chamado_obj.descricao = self.text_area_descricao.get("1.0", tk.END).strip()
@@ -128,6 +129,7 @@ class AtualizarChamadoScreen:
                 chamado_obj.id_usuario = self.atendente_selecionado.get().split('-')[0]
         
         chamado_obj.data_abertura = self.date_abertura_input.get_date()
+        
         #TODO falta data-max e status
         if self.problema_selecionado.get() != '' and self.problema_selecionado.get() != None:
             chamado_obj.id_categoria = self.problema_selecionado.get().split('-')[0]
@@ -137,7 +139,7 @@ class AtualizarChamadoScreen:
         messagebox.showinfo('Atualizar', 'Chamado atualizado com sucesso!')
         self.voltar_atendente()
         
-    def voltar_atendente(self):
+    def voltar_atendente(self) -> None:
         from .atendente_screen import AtendenteScreen
         self.exit()
         new_root = tk.Tk()

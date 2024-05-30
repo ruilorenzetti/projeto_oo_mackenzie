@@ -67,7 +67,7 @@ class ClienteScreen:
         self.voltar_button = tk.Button(self.frame, text="Voltar", font=self.bold_font, width=15, command=self.voltar_login)
         self.voltar_button.grid(row=4, column=1, padx=20, pady=10)
 
-    def criar_cliente(self):
+    def criar_cliente(self) -> None:
         from .cliente_cadastro_screen import ClienteCadastroScreen
         self.exit()
         new_root = tk.Tk()
@@ -81,7 +81,7 @@ class ClienteScreen:
         excluir_cliente_app = ExcluirClienteScreen(new_root)
         new_root.mainloop()
         
-    def open_criar_chamado_screen(self):
+    def open_criar_chamado_screen(self) -> None:
         from .cadastro_chamado_cliente_screen import CadastroChamadoClienteScreen
         self.exit()
         new_root = tk.Tk()

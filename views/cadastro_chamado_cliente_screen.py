@@ -75,6 +75,8 @@ class CadastroChamadoClienteScreen:
         chamado_do_cliente.status = 'Aberto'
         chamado_do_cliente.data_abertura = date.today().strftime("%d/%m/%Y")
         self.chamado_controller.criar_chamado(chamado_do_cliente)
+        messagebox.showinfo('Cadastro', 'Chamado cadastrado com sucesso!')
+        self.voltar_cliente_screen()
 
     def voltar_cliente_screen(self) -> None:
         from .cliente_screen import ClienteScreen
